@@ -16,11 +16,19 @@ class UserController extends AbstractController
     ) {}
 
     #[Route('', name: 'user.index', methods: ['GET'])]
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 10);
+        $result = $this->userService->getAll($page, $limit);
+        
         return $this->json([
             'status' => '200',
-            'users' => $this->userService->getAll()
+            'articles' => $result['articles'],
+            'total' => $result['total'],
+            'page' => $page,
+            'limit' => $limit,
+            'total_pages' => ceil($result['total'] / $limit)
         ]);
     }
 

@@ -17,9 +17,23 @@ class DemandeDetteService
         private EntityManagerInterface $entityManager
     ) {}
 
-    public function getAll(): array
+    public function getAll(int $page = 1, int $limit = 10): array
     {
-        return $this->demandeDetteRepository->findAll();
+        $offset = ($page - 1) * $limit;
+
+        $demandesDettes = $this->demandeDetteRepository->findBy(
+            [],
+            [],
+            $limit,
+            $offset
+        );
+
+        $total = $this->demandeDetteRepository->count([]);
+
+        return [
+            'demandesDettes' => $demandesDettes,
+            'total' => $total
+        ];
     }
 
     public function create(array $data): array

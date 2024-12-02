@@ -16,9 +16,23 @@ class PaiementService
         private ValidatorInterface $validator
     ) {}
 
-    public function getAll(): array
+    public function getAll(int $page = 1, int $limit = 10): array
     {
-        return $this->paiementRepository->findAll();
+        $offset = ($page - 1) * $limit;
+
+        $paiements = $this->paiementRepository->findBy(
+            [],
+            [],
+            $limit,
+            $offset
+        );
+
+        $total = $this->paiementRepository->count([]);
+
+        return [
+            'paiements' => $paiements,
+            'total' => $total
+        ];
     }
 
     public function create(array $data): array

@@ -17,9 +17,23 @@ class DetteService
         private EntityManagerInterface $entityManager
     ) {}
 
-    public function getAll(): array
+    public function getAll(int $page = 1, int $limit = 10): array
     {
-        return $this->detteRepository->findAll();
+        $offset = ($page - 1) * $limit;
+
+        $dettes = $this->detteRepository->findBy(
+            [],
+            [],
+            $limit,
+            $offset
+        );
+
+        $total = $this->detteRepository->count([]);
+
+        return [
+            'dettes' => $dettes,
+            'total' => $total
+        ];
     }
 
     public function create(array $data): array

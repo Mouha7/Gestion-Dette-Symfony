@@ -16,9 +16,23 @@ class ClientService
         private EntityManagerInterface $entityManager
     ) {}
 
-    public function getAll(): array
+    public function getAll(int $page = 1, int $limit = 10): array
     {
-        return $this->clientRepository->findAll();
+        $offset = ($page - 1) * $limit;
+
+        $clients = $this->clientRepository->findBy(
+            [],
+            [],
+            $limit,
+            $offset
+        );
+
+        $total = $this->clientRepository->count([]);
+        
+        return [
+            'clients' => $clients,
+            'total' => $total
+        ];
     }
 
     public function create(array $data): array

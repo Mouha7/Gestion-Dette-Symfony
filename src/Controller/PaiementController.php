@@ -16,11 +16,19 @@ class PaiementController extends AbstractController
     ) {}
 
     #[Route('', name: 'paiement.index', methods: ['GET'])]
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 10);
+        $result = $this->paiementService->getAll($page, $limit);
+
         return $this->json([
             'status' => '200',
-            'paiements' => $this->paiementService->getAll(),
+            'paiements' => $result['paiements'],
+            'total' => $result['total'],
+            'page' => $page,
+            'limit' => $limit,
+            'total_pages' => ceil(num: $result['total'] / $limit)
         ]);
     }
 

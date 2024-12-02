@@ -17,9 +17,23 @@ class UserService
         private EntityManagerInterface $entityManager
     ) {}
 
-    public function getAll(): array
+    public function getAll(int $page = 1, int $limit = 10): array
     {
-        return $this->userRepository->findAll();
+        $offset = ($page - 1) * $limit;
+
+        $users = $this->userRepository->findBy(
+            [],
+            [],
+            $limit,
+            $offset
+        );
+
+        $total = $this->userRepository->count([]);
+
+        return [
+            'users' => $users,
+            'total' => $total
+        ];
     }
 
     public function create(array $data): array
