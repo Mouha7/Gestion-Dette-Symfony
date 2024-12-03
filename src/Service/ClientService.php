@@ -71,4 +71,9 @@ class ClientService
             'client' => $client,
         ];
     }
+
+    public function getBy(int $id)
+    {
+        return $this->clientRepository->findOneBy(["id" => $id]);
+    }
 }

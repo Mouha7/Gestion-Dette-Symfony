@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Detail;
 use App\Entity\DemandeArticle;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,6 +13,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[ApiResource(
+    shortName: "Article",
+    description: "Gestion des articles",
+    normalizationContext: ['groups' => ['article:read']],
+    denormalizationContext: ['groups' => ['article:create']]
+)]
 class Article
 {
     #[ORM\Id]

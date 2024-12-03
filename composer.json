@@ -70,6 +70,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "prepare": [
+            "symfony console d:d:d --force",
+            "symfony console d:d:c",
+            "symfony console m:migration",
+            "symfony console d:m:m -n"
         ]
     },
     "conflict": {

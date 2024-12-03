@@ -19,34 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: "Client",
     description: "Gestion des clients",
-    operations: [
-        new Get(
-            normalizationContext: ['groups' => ['client:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new GetCollection(
-            normalizationContext: ['groups' => ['client:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Post(
-            normalizationContext: ['groups' => ['client:create']],
-            denormalizationContext: ['groups' => ['client:create']],
-            security: "is_granted('ROLE_ADMIN') || is_granted('ROLE_BOUTIQUIER')"
-        ),
-        new Put(
-            normalizationContext: ['groups' => ['client:update']],
-            denormalizationContext: ['groups' => ['client:update']],
-            security: "is_granted('ROLE_ADMIN') || is_granted('ROLE_BOUTIQUIER')"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN') || is_granted('ROLE_BOUTIQUIER')"
-        ),
-    ],
     normalizationContext: ['groups' => ['client:read']],
-    denormalizationContext: ['groups' => ['client:create']],
-    paginationEnabled: true,
-    paginationItemsPerPage: 10,
-    order: ['createdAt' => 'DESC']
+    denormalizationContext: ['groups' => ['client:create']]
 )]
 class Client
 {

@@ -61,4 +61,9 @@ class UserService
             'user' => $user,
         ];
     }
+
+    public function getBy(array $data)
+    {
+        return $this->userRepository->findOneBy($data);
+    }
 }

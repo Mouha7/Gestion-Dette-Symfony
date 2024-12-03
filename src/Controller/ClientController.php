@@ -37,4 +37,10 @@ class ClientController extends AbstractController
     {
         return $this->json($this->clientService->create(json_decode($request->getContent(), true)));
     }
+
+    #[Route(path: '/{id}', name: 'client.one', methods: ['GET'])]
+    public function getOne(int $id): JsonResponse
+    {
+        return $this->json($this->clientService->getBy($id));
+    }
 }

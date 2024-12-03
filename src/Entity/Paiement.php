@@ -2,14 +2,9 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PaiementRepository;
-use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,27 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: 'Paiement',
     description: 'Gestion des paiements d\'un client',
-    operations: [
-        new Get(
-            normalizationContext: ['groups' => ['paiement:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new GetCollection(
-            normalizationContext: ['groups' => ['paiement:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Post(
-            denormalizationContext: ['groups' => ['paiement:create']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new Put(
-            denormalizationContext: ['groups' => ['paiement:update']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-    ],
     normalizationContext: ['groups' => ['paiement:read']],
     denormalizationContext: ['groups' => ['paiement:create']]
 )]

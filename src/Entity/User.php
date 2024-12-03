@@ -20,27 +20,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ApiResource(
     shortName: 'user',
     description: "Table des utilisateurs",
-    operations: [
-        new Get(
-            normalizationContext: ['groups' => ['user:read']],
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new GetCollection(
-            normalizationContext: ['groups' => ['user:read']],
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new Post(
-            denormalizationContext: ['groups' => ['user:create']],
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new Put(
-            denormalizationContext: ['groups' => ['user:update']],
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN')"
-        )
-    ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:create']]
 )]

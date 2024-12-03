@@ -132,4 +132,9 @@ class DetteService
             'dette' => $dette,
         ];
     }
+
+    public function getBy(int $id)
+    {
+        return $this->detteRepository->findOneBy(["id" => $id]);
+    }
 }

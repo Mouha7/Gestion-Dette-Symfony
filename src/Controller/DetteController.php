@@ -38,9 +38,15 @@ class DetteController extends AbstractController
         return $this->json($this->detteService->create(json_decode($request->getContent(), true)));
     }
 
-    #[Route('/{id}', name: 'dette.update', methods: ['PUT'])]
+    #[Route('/update/{id}', name: 'dette.update', methods: ['PUT'])]
     public function update(int $id, Request $request): JsonResponse
     {
         return $this->json($this->detteService->update($id, json_decode($request->getContent(), true)));
+    }
+
+    #[Route(path: '/{id}', name: 'dette.one', methods: ['GET'])]
+    public function getOne(int $id): JsonResponse
+    {
+        return $this->json($this->detteService->getBy($id));
     }
 }

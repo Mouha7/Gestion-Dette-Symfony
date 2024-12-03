@@ -37,4 +37,10 @@ class PaiementController extends AbstractController
     {
         return $this->json($this->paiementService->create(json_decode($request->getContent(), true)));
     }
+
+    #[Route(path: '/{id}', name: 'paiement.one', methods: ['GET'])]
+    public function getOne(int $id): JsonResponse
+    {
+        return $this->json($this->paiementService->getBy($id));
+    }
 }

@@ -24,7 +24,7 @@ class UserController extends AbstractController
         
         return $this->json([
             'status' => '200',
-            'articles' => $result['articles'],
+            'users' => $result['users'],
             'total' => $result['total'],
             'page' => $page,
             'limit' => $limit,
@@ -36,5 +36,21 @@ class UserController extends AbstractController
     public function add(Request $request): JsonResponse
     {
         return $this->json($this->userService->create(json_decode($request->getContent(), true)));
+    }
+
+    #[Route(path: '/{id}', name: 'user.one', methods: ['GET'])]
+    public function getOne(int $id): JsonResponse
+    {
+        return $this->json($this->userService->getBy(["id" => $id]));
+    }
+
+    #[Route(path: '/info/{email}', name: 'user.info', methods: ['GET'])]
+    public function info(string $email): JsonResponse
+    {
+        $user = $this->userService->getBy(["email" => $email]);
+        return $this->json([
+            'roles' => $user->getRoles(),
+            'surname' => $user->getLogin()
+        ]);
     }
 }

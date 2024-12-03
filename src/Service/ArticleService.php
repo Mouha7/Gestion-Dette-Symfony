@@ -62,4 +62,9 @@ class ArticleService
     {
         return $this->articleRepository->findAllAvailable();
     }
+
+    public function getBy(int $id)
+    {
+        return $this->articleRepository->findOneBy(["id" => $id]);
+    }
 }

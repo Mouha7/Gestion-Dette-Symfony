@@ -2,14 +2,8 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
 use App\Repository\DemandeArticleRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,31 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: 'DemandeArticle',
     description: "Table d'association entre Demande de Dette et Article",
-    operations: [
-        new GetCollection(
-            normalizationContext: ['groups' => ['demande_article:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Get(
-            normalizationContext: ['groups' => ['demande_article:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new Post(
-            denormalizationContext: ['groups' => ['demande_article:create']],
-            security: "is_granted('ROLE_CLIENT')  || is_granted('ROLE_BOUTIQUIER') || is_granted('ROLE_ADMIN')"
-        ),
-        new Put(
-            denormalizationContext: ['groups' => ['demande_article:update']],
-            security: "is_granted('ROLE_ADMIN') || is_granted('ROLE_BOUTIQUIER')"
-        )
-    ],
     normalizationContext: ['groups' => ['demande_article:read']],
-    denormalizationContext: ['groups' => ['demande_article:create']],
-    paginationEnabled: false,
-    order: ['createdAt' => 'DESC']
+    denormalizationContext: ['groups' => ['demande_article:create']]
 )]
 class DemandeArticle
 {

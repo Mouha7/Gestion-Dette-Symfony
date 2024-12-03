@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
         $this->loadArticles($manager);
         $this->loadClients($manager);
         $this->loadDetails($manager);
-        $this->loadBase($manager);
+        // $this->loadBase($manager);
 
         $manager->flush();
     }

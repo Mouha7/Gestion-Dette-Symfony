@@ -138,4 +138,9 @@ class DemandeDetteService
             'demandeDette' => $demandeDette,
         ];
     }
+
+    public function getBy(int $id)
+    {
+        return $this->demandeDetteRepository->findOneBy(["id" => $id]);
+    }
 }

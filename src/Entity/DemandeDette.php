@@ -3,15 +3,10 @@
 namespace App\Entity;
 
 use App\Entity\Dette;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Post;
 use App\Entity\DemandeArticle;
 use App\Enums\EtatDemandeDette;
-use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
 use App\Repository\DemandeDetteRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,27 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: "DemandeDette",
     description: "Gestion de la demande de dette d'un client",
-    operations: [
-        new Get(
-            normalizationContext: ['groups' => ['demande_dette:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new GetCollection(
-            normalizationContext: ['groups' => ['demande_dette:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Post(
-            denormalizationContext: ['groups' => ['demande_dette:create']],
-            security: "is_granted('ROLE_ADMIN') || is_granted('ROLE_BOUTIQUIER')"
-        ),
-        new Put(
-            denormalizationContext: ['groups' => ['demande_dette:create']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-    ],
     normalizationContext: ['groups' => ['default', 'demande_dette:read']],
     denormalizationContext: ['groups' => ['default', 'demande_dette:create']],
 )]

@@ -15,7 +15,7 @@ class ArticleController extends AbstractController
         private ArticleService $articleService
     ) {}
 
-    #[Route('', name: 'article.index', methods: ['GET'])]
+    #[Route(path: '', name: 'article.index', methods: ['GET'])]
     public function index(Request $request): JsonResponse
     {
         $page = $request->query->getInt('page', 1);
@@ -34,9 +34,15 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('', name: 'article.create', methods: ['POST'])]
+    #[Route(path: '', name: 'article.create', methods: ['POST'])]
     public function add(Request $request): JsonResponse
     {
         return $this->json($this->articleService->create(json_decode($request->getContent(), true)));
+    }
+
+    #[Route(path: '/{id}', name: 'article.', methods: ['GET'])]
+    public function getOne(int $id): JsonResponse
+    {
+        return $this->json($this->articleService->getBy($id));
     }
 }

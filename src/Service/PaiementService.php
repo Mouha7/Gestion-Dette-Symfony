@@ -69,4 +69,9 @@ class PaiementService
             'paiement' => $paiement,
         ];
     }
+
+    public function getBy(int $id)
+    {
+        return $this->paiementRepository->findOneBy(["id" => $id]);
+    }
 }

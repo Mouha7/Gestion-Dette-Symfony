@@ -22,27 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: "Dette",
     description: "Gestion de dette d'un client",
-    operations: [
-        new Get(
-            normalizationContext: ['groups' => ['dette:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new GetCollection(
-            normalizationContext: ['groups' => ['dette:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Post(
-            denormalizationContext: ['groups' => ['dette:create']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Put(
-            denormalizationContext: ['groups' => ['dette:update']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN')"
-        )
-    ],
     normalizationContext: ['groups' => ['dette:read']],
     denormalizationContext: ['groups' => ['dette:create']]
 )]

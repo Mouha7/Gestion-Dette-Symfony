@@ -17,32 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: 'detail',
     description: "Table de détail des articles",
-    operations: [
-        new Get(
-            normalizationContext: ['groups' => ['detail:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new GetCollection(
-            normalizationContext: ['groups' => ['detail:read']],
-            security: "is_granted('ROLE_CLIENT')"
-        ),
-        new Post(
-            normalizationContext: ['groups' => ['detail:create']],
-            denormalizationContext: ['groups' => ['detail:read']],
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new Put(
-            normalizationContext: ['groups' => ['detail:update']],
-            denormalizationContext: ['groups' => ['detail:read']],
-            security: "is_granted('ROLE_ADMIN')"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN')"
-        )
-    ],
     normalizationContext: ['groups' => ['detail:read']],
     denormalizationContext: ['groups' => ['detail:create']],
-    paginationEnabled: false,
 )]
 class Detail
 {
