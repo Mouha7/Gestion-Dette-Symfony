@@ -31,6 +31,21 @@ npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
 ```bash
 npm i -D daisyui@latest
 ```
+- Installation et Utilisation d'un server local:
+    1. Installation du server
+    ```bash
+    npm install -g http-server
+    ```
+    2. Utilisation du server
+    ```bash
+    http-server -p 3000
+    ```
+
+- Installation de concurrently : pour exécuter plusieurs commandes en parallèle
+```bash
+npm install -D concurrently
+```
+
 
 ## Explication de Claude pour la mise en place
 Je vais vous guider étape par étape pour créer un projet monolithique distribué avec Symfony pour le backend et JavaScript vanilla pour le frontend, en suivant une architecture MVC et SPA.
@@ -510,7 +525,7 @@ Améliorations possibles :
 
 Recommendations de sécurité :
 - Utilisez HTTPS
-- Implementez le httpOnly pour les cookies côté serveur
+- Implémentez le httpOnly pour les cookies côté serveur
 - Ajoutez des mécanismes de protection contre les attaques CSRF
 - Limitez la durée de vie des tokens
 

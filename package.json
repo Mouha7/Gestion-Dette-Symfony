@@ -1,9 +1,28 @@
 {
-  "dependencies": {
-    "axios": "^1.7.8"
-  },
-  "devDependencies": {
-    "daisyui": "^4.12.14",
-    "tailwindcss": "^3.4.15"
-  }
+	"dependencies": {
+		"axios": "^1.7.8"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.4.20",
+		"concurrently": "^9.1.0",
+		"daisyui": "^4.12.14",
+		"postcss": "^8.4.49",
+		"tailwindcss": "^3.4.15",
+		"vite": "^6.0.2"
+	},
+	"scripts": {
+		"tailwind:dev": "tailwindcss -i ./styles/main.css -o ./styles/output.css --watch",
+		"tailwind:build": "tailwindcss -i ./styles/main.css -o ./styles/output.css --minify",
+		"dev": "concurrently \"npm run tailwind:dev\" \"vite\"",
+		"build": "npm run tailwind:build && vite build",
+		"preview": "vite preview"
+	},
+	"type": "module",
+	"name": "frontend",
+	"version": "1.0.0",
+	"description": "- Installation de `axios`:  ```bash npm install axios ``` - Installation de `Tailwind Css`: ```bash npm install -D tailwindcss npx tailwindcss init ``` config: ```javascript /** @type {import('tailwindcss').Config} */ module.exports = {   content: [\"./src/**/*.{html,js}\"],   theme: {     extend: {},   },   plugins: [], } ``` ```css @tailwind base; @tailwind components; @tailwind utilities; ``` ```bash npx tailwindcss -i ./src/input.css -o ./src/output.css --watch ``` - Installation de DaisyUI: ```bash npm i -D daisyui@latest ``` - Installation et Utilisation d'un server local:     1. Installation du server     ```bash     npm install -g http-server     ```     2. Utilisation du server     ```bash     http-server -p 3000     ```",
+	"main": "App.js",
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
 }
