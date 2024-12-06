@@ -1,13 +1,14 @@
 import NavbarInfo from "./partials/NavbarInfo.js";
 import Footer from "./partials/Footer.js";
+import Container from "./partials/Container.js";
 
-class Menu {
+class Main {
 	static sideBarLeft() {
 		const render = `
             <div class="flex h-screen">
 			<!-- Side Menu -->
 			<aside
-				class="w-64 bg-first py-3 text-gray-100 flex flex-col hidden"
+				class="w-64 bg-first py-3 z-10 text-gray-100 flex flex-col hidden"
 				id="side-menu"
 			>
 				<div class="p-6 text-xl font-semibold cursor-pointer">
@@ -138,25 +139,6 @@ class Menu {
 								Utilisateurs</
 							>
 						</li>
-						<li>
-							<button
-								class="w-full py-2 px-4 flex items-center gap-2.5 hover:bg-gray-300 hover:text-first logout"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewbox="0 0 24 24"
-									fill="currentColor"
-									class="inline-block h-5 w-5 stroke-current"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-								Logout</
-							>
-						</li>
 					</ul>
 				</nav>
 			</aside>
@@ -173,14 +155,14 @@ class Menu {
 
 		</div>
         `;
-        this.eventMenu();
         this.eventSlide();
         return render;
 	}
 
-	static sideBarRight() {
+	static sideBarRight(data) {
 		const render = `
             ${NavbarInfo.navbar()}
+			${Container.container(data)}
             ${Footer.footer()}
         `;
         return render;
@@ -211,54 +193,6 @@ class Menu {
 			}
 		});
 	}
-
-	static eventMenu() {
-		document.addEventListener("DOMContentLoaded", () => {
-			// Ajout d'événements pour chaque élément de menu
-			const menuItems = document.querySelectorAll("#side-menu ul li button");
-			menuItems.forEach((item) => {
-				item.addEventListener("click", (e) => {
-					// Retirer la classe active de tous les éléments
-					menuItems.forEach((menuItem) => {
-						menuItem.classList.remove("bg-gray-300", "text-first");
-					});
-
-					// Ajouter la classe active à l'élément cliqué
-					e.currentTarget.classList.add("bg-gray-300", "text-first");
-
-					// Récupérer le texte de l'élément cliqué
-					const sectionTitle = e.currentTarget.textContent.trim();
-
-					// Exemple de gestion de navigation basique
-					switch (sectionTitle) {
-						case "Dashboard":
-							// Logique pour afficher le tableau de bord
-							console.log("Naviguer vers le Dashboard");
-							break;
-						case "Dettes":
-							console.log("Naviguer vers les Dettes");
-							break;
-						case "Clients":
-							console.log("Naviguer vers les Clients");
-							break;
-						case "Articles":
-							console.log("Naviguer vers les Articles");
-							break;
-						case "Demandes":
-							console.log("Naviguer vers les Demandes");
-							break;
-						case "Utilisateurs":
-							console.log("Naviguer vers les Utilisateurs");
-							break;
-						case "Logout":
-							// Logique de déconnexion
-							console.log("Déconnexion");
-							break;
-					}
-				});
-			});
-		});
-	}
 }
 
-export default Menu;
+export default Main;

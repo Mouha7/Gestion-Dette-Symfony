@@ -1,6 +1,12 @@
+import SecurityController from "../../controllers/SecurityController.js";
+
 class NavbarInfo {
-    static navbar() {
-        return `
+	constructor() {
+		this.securityController = new SecurityController();
+	}
+
+	static navbar() {
+		const render = `
             <div class="navbar bg-gray-100 rounded mb-6 flex-none shadow-md">
                 <div class="flex-none" id="menu-burger">
                     <button class="btn btn-square btn-ghost">
@@ -49,14 +55,32 @@ class NavbarInfo {
                                 <a>Settings</a>
                             </li>
                             <li>
-                                <a class="logout">Logout</a>
+                                <a id="logout">Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         `;
-    }
+		this.attachEventListeners();
+		return render;
+	}
+
+	static attachEventListeners() {
+		document.addEventListener("DOMContentLoaded", () => {
+			const logout = document.querySelector("#logout");
+			if (logout) {
+                logout.addEventListener("click", () => {
+                    const navbarInfo = new NavbarInfo();
+                    try {
+                        navbarInfo.securityController.logoutCheck();
+                    } catch (error) {
+                        console.error("Erreur lors de la déconnexion", error);
+                    }
+                });
+            }
+		});
+	}
 }
 
 export default NavbarInfo;

@@ -54,6 +54,8 @@ class ApiService {
     logout() {
         localStorage.removeItem('jwt_token');
         localStorage.removeItem('email');
+        localStorage.removeItem('user');
+        localStorage.removeItem('role');
         // Rediriger vers la page de connexion
         window.location.href = '/login';
     }
@@ -64,10 +66,30 @@ class ApiService {
             const response = await this.axios.get(uri);
             return response.data;
         } catch (error) {
-            console.error('Erreur lors de la récupération des utilisateurs', error);
+            console.error('Erreur lors de la récupération des données', error);
+            throw error;
+        }
+    }
+
+    async post(uri, data) {
+        try {
+            const response = await this.axios.post(uri, data);
+            return response.data;
+        } catch (error) {
+            console.error('Erreur lors de la envoie des données', error);
+            throw error;
+        }
+    }
+
+    async put(uri, data) {
+        try {
+            const response = await this.axios.put(uri, data);
+            return response.data;
+        } catch (error) {
+            console.error('Erreur lors de la modification des données', error);
             throw error;
         }
     }
 }
 
-export default new ApiService();
+export default ApiService;

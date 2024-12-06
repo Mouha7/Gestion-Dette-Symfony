@@ -1,40 +1,40 @@
-import ApiService from "../services/ApiService.js";
+import SecurityController from "../controllers/SecurityController.js";
 
 class LoginView {
 	constructor(router) {
 		this.router = router;
-		this.apiService = ApiService;
+		this.securityController = new SecurityController();
 	}
 
 	render() {
 		const container = document.getElementById("app");
 		container.innerHTML = `
-        <div class="flex flex-col bg-first py-3 items-center justify-center h-screen relative">
-            <div class="w-full max-w-md bg-gray-100 rounded-lg shadow-md p-6">
-                <div class="w-full flex justify-between items-center mb-4">
-					<h2 class="text-2xl font-bold text-first">Login</h2>
-					<img src="./assets/images/logo.png" alt="Logo App" class="w-[15%] aspect-square" >
-				</div>
-				<div role="alert" id="error-message">
-				</div>
-                <form class="flex flex-col" id="login-form">
-					<input type="email" id="email" class="bg-gray-300 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-first transition ease-in-out duration-150" placeholder="Email">
-					<input type="password" id="password" class="bg-gray-300 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-first transition ease-in-out duration-150" placeholder="Password">
-					<div class="flex items-center justify-between flex-wrap">
-						<label for="remember-me" class="text-sm text-gray-900 cursor-pointer">
-						<input type="checkbox" id="remember-me" class="mr-2">
-						Remember me
-						</label>
-						<a href="#" class="text-sm text-blue-500 hover:underline mb-0.5">Forgot password?</a>
-						<p class="text-gray-900 mt-4"> Don't have an account? <a href="#" class="text-sm text-blue-500 -200 hover:underline mt-4">Signup</a></p>
+			<div class="flex flex-col bg-first py-3 items-center justify-center h-screen relative">
+				<div class="w-full max-w-md bg-gray-100 rounded-lg shadow-md p-6">
+					<div class="w-full flex justify-between items-center mb-4">
+						<h2 class="text-2xl font-bold text-first">Login</h2>
+						<img src="./assets/images/logo.png" alt="Logo App" class="w-[15%] aspect-square" >
 					</div>
-					<button class="bg-gradient-to-r from-first to-first text-gray-100 font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150" type="submit">Se connecter</button>
-                </form>
-            </div>
-			<footer class="bg-gray-200 p-4 text-center flex-none absolute bottom-0 rounded-t w-screen">
-				<p>SMRS &copy; 2024 Gestion Boutique. Tous droits réservés.</p>
-			</footer>
-        </div>
+					<div role="alert" id="error-message">
+					</div>
+					<form class="flex flex-col" id="login-form">
+						<input type="email" id="email" class="bg-gray-300 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-first transition ease-in-out duration-150" placeholder="Email">
+						<input type="password" id="password" class="bg-gray-300 text-gray-900 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-first transition ease-in-out duration-150" placeholder="Password">
+						<div class="flex items-center justify-between flex-wrap">
+							<label for="remember-me" class="text-sm text-gray-900 cursor-pointer">
+							<input type="checkbox" id="remember-me" class="mr-2">
+							Remember me
+							</label>
+							<a href="#" class="text-sm text-blue-500 hover:underline mb-0.5">Forgot password?</a>
+							<p class="text-gray-900 mt-4"> Don't have an account? <a href="#" class="text-sm text-blue-500 -200 hover:underline mt-4">Signup</a></p>
+						</div>
+						<button class="bg-gradient-to-r from-first to-first text-gray-100 font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150" type="submit">Se connecter</button>
+					</form>
+				</div>
+				<footer class="bg-gray-200 p-4 text-center flex-none absolute bottom-0 rounded-t w-screen">
+					<p>SMRS &copy; 2024 Gestion Boutique. Tous droits réservés.</p>
+				</footer>
+			</div>
         `;
 
 		this.attachEventListeners();
@@ -51,7 +51,7 @@ class LoginView {
 			const password = document.getElementById("password").value;
 
 			try {
-				await this.apiService.login({ email, password });
+				await this.securityController.loginCheck({ email, password });
 				// Redirection après connexion réussie
 				this.router.navigate("/");
 			} catch (error) {

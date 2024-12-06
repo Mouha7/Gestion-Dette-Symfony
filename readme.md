@@ -31,14 +31,40 @@ npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
 ```bash
 npm i -D daisyui@latest
 ```
-- Installation et Utilisation d'un server local:
-    1. Installation du server
+- Installation et Utilisation de Vite comme dépendance de développement:
+    1. Installation de Vite
     ```bash
-    npm install -g http-server
+    npm install vite -D
     ```
-    2. Utilisation du server
-    ```bash
-    http-server -p 3000
+    2. Configuration de Vite (Modifier le package.json)
+    ```json
+    {
+        "scripts": {
+            "tailwind:dev": "npx tailwindcss -i ./styles/main.css -o ./styles/output.css --watch",
+            "tailwind:build": "npx tailwindcss -i ./styles/main.css -o ./styles/output.css --minify",
+            "dev": "concurrently \"npm run tailwind:dev\" \"vite\"",
+            "build": "npm run tailwind:build && vite build",
+            "preview": "vite preview"
+        }
+    }
+    ```
+    3. Créer un fichier `vite.config.js` à la racine du projet
+    ```javascript
+    import { defineConfig } from 'vite';
+
+    export default defineConfig({
+    server: {
+        port: 3000,
+        open: true, // Ouvre automatiquement dans le navigateur
+        cors: true  // Active CORS si nécessaire
+    },
+    // Configuration pour les imports
+    resolve: {
+        alias: {
+        '@': '/src'  // Permet des imports plus courts
+        }
+    }
+    });
     ```
 
 - Installation de concurrently : pour exécuter plusieurs commandes en parallèle

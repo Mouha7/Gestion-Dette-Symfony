@@ -2,7 +2,6 @@ import Router from './router.js';
 import HomeView from './src/views/HomeView.js';
 import UserView from './src/views/UserView.js';
 import LoginView from './src/views/LoginView.js';
-import UserController from './src/controllers/UserController.js';
 
 const routes = [
     { path: '/', view: HomeView, requireAuth: true },
